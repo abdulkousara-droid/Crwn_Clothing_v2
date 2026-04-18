@@ -20,18 +20,31 @@ import {
   getDocs,
 } from 'firebase/firestore';
 
-const firebaseConfig = {
+//const firebaseConfig = {
   // put your own config object from the firebase here
-  apiKey: 'AIzaSyDrhlGcmVcZzOkLFJuGCOfnpgALB19AnkQ',
-  authDomain: 'crwn-db-3d5f3.firebaseapp.com',
-  projectId: 'crwn-db-3d5f3',
-  storageBucket: 'crwn-db-3d5f3.appspot.com',
-  messagingSenderId: '306509039148',
-  appId: '1:306509039148:web:b424c1ced996032082f389',
-  measurementId: 'G-C9ZK80EPV0',
+ // apiKey: 'AIzaSyDrhlGcmVcZzOkLFJuGCOfnpgALB19AnkQ',
+  //authDomain: 'crwn-db-3d5f3.firebaseapp.com',
+ // projectId: 'crwn-db-3d5f3',
+ // storageBucket: 'crwn-db-3d5f3.appspot.com',
+  //messagingSenderId: '306509039148',
+ // appId: '1:306509039148:web:b424c1ced996032082f389',
+ //measurementId: 'G-C9ZK80EPV0',};
+
+//const firebaseApp = initializeApp(firebaseConfig);
+
+
+// Your web app's Firebase configuration
+const firebaseConfig = {
+  apiKey: "AIzaSyBCy85X-0Rz8ZoEP9Z3_BkBQ_7TV2eW3GQ",
+  authDomain: "crwn-clothing-db-8a018.firebaseapp.com",
+  projectId: "crwn-clothing-db-8a018",
+  storageBucket: "crwn-clothing-db-8a018.firebasestorage.app",
+  messagingSenderId: "64595859580",
+  appId: "1:64595859580:web:b07667bd4b29e2a96e51f9"
 };
 
-const firebaseApp = initializeApp(firebaseConfig);
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
 
 const googleProvider = new GoogleAuthProvider();
 
@@ -70,6 +83,7 @@ export const getCategoriesAndDocuments = async () => {
   const querySnapshot = await getDocs(q);
   const categoryMap = querySnapshot.docs.reduce((acc, docSnapshot) => {
     const { title, items } = docSnapshot.data();
+    console.log( docSnapshot.data())
     acc[title.toLowerCase()] = items;
     return acc;
   }, {});
