@@ -1,4 +1,4 @@
-import { createContext, useState, useEffect } from 'react';
+import {createContext, useState, useEffect, useCallback} from 'react';
 
 import {
   onAuthStateChangedListener,
@@ -16,9 +16,9 @@ export const UserProvider = ({ children }) => {
   const value = { currentUser, setCurrentUser };
   const navigate = useNavigate();
 
-  const goToHomePage = () => {
+  const goToHomePage = useCallback(() => {
     navigate('/');
-  };
+  }, [navigate]);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChangedListener((user) => {
@@ -30,7 +30,7 @@ export const UserProvider = ({ children }) => {
     });
 
     return unsubscribe;
-  }, []);
+  }, [goToHomePage]);
 
   return <UserContext.Provider value={value}>{children}</UserContext.Provider>;
 };
