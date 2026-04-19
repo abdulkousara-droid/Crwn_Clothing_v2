@@ -4,6 +4,7 @@ import {
   onAuthStateChangedListener,
   createUserDocumentFromAuth,
 } from '../utils/firebase/firebase.utils';
+import {useNavigate} from "react-router-dom";
 
 export const UserContext = createContext({
   setCurrentUser: () => null,
@@ -13,6 +14,11 @@ export const UserContext = createContext({
 export const UserProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState(null);
   const value = { currentUser, setCurrentUser };
+  const navigate = useNavigate();
+
+  const goToHomePage = () => {
+    navigate('/');
+  };
 
   useEffect(() => {
     const unsubscribe = onAuthStateChangedListener((user) => {
@@ -20,6 +26,7 @@ export const UserProvider = ({ children }) => {
         createUserDocumentFromAuth(user);
       }
       setCurrentUser(user);
+      goToHomePage();
     });
 
     return unsubscribe;
