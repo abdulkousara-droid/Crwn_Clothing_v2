@@ -16,9 +16,9 @@ export const UserProvider = ({ children }) => {
   const value = { currentUser, setCurrentUser };
   const navigate = useNavigate();
 
-  const goToHomePage = useCallback(() => {
+  const goToHomePage = () => {
     navigate('/');
-  }, [navigate]);
+  }
 
   useEffect(() => {
     const unsubscribe = onAuthStateChangedListener((user) => {
@@ -30,7 +30,7 @@ export const UserProvider = ({ children }) => {
     });
 
     return unsubscribe;
-  }, [goToHomePage]);
+  }, []);
 
   return <UserContext.Provider value={value}>{children}</UserContext.Provider>;
 };
